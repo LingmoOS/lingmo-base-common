@@ -1,5 +1,0 @@
-# Lingmo OS official software repository
-deb http://packages.lingmo.org/lingmo helium main
-# deb-src http://packages.lingmo.org/lingmo helium main
-
-# Lingmo OS Team <team@lingmo.org>
