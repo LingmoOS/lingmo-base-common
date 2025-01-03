@@ -7,10 +7,11 @@ Build-Depends: debhelper-compat (= 13), debhelper (>= 13.10~)
 Rules-Requires-Root: binary-targets
 
 Package: lingmo-base-files
-Provides: base, usr-is-merged, base-files
+Provides: base, usr-is-merged, base-files (= ${binary:Version})
 Architecture: any
 Pre-Depends: awk
-Depends: ${misc:Depends}, system-core | lingmo-workspace-base
+Depends: ${misc:Depends}
+Recommends: system-core | lingmo-workspace-base
 Essential: yes
 Priority: required
 Replaces: base, miscutils, dpkg (<= 1.15.0), base-files
