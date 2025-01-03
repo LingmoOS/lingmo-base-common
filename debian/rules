@@ -11,7 +11,7 @@ ifeq ($(DEB_HOST_GNU_SYSTEM),gnu)
 endif
 
 VENDORFILE = debian
-DESTDIR = debian/base-files
+DESTDIR = debian/lingmo-base-files
 
 ifneq (,$(filter $(DEB_HOST_ARCH),amd64 loong64 mips64el ppc64 ppc64el sparc64))
   USR_MERGE_RTLDLIB = lib64
@@ -65,7 +65,7 @@ override_dh_link:
 	dh_link -X os-release
 	# We want these links to be relative, so we cannot use dh_link.
 	set -e; for d in $(USR_MERGE); do \
-	  ln -s usr/$$d debian/base-files/$$d; \
+	  ln -s usr/$$d $(DESTDIR)/$$d; \
 	done
 
 override_dh_compress:
@@ -73,11 +73,11 @@ override_dh_compress:
 
 override_dh_fixperms:
 	dh_fixperms
-	cd debian/base-files && chown root:staff   var/local
-	cd debian/base-files && chmod 755  `find . -type d`
-	cd debian/base-files && chmod 1777 `cat ../1777-dirs`
-	cd debian/base-files && chmod 2775 `cat ../2775-dirs`
-	cd debian/base-files && chmod 700 root
+	cd $(DESTDIR) && chown root:staff   var/local
+	cd $(DESTDIR) && chmod 755  `find . -type d`
+	cd $(DESTDIR) && chmod 1777 `cat ../1777-dirs`
+	cd $(DESTDIR) && chmod 2775 `cat ../2775-dirs`
+	cd $(DESTDIR) && chmod 700 root
 
 override_dh_installdeb:
 	dh_installdeb \
