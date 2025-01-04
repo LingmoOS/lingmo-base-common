@@ -32,6 +32,7 @@ endif
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/issue      > $(DESTDIR)/etc/issue
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/issue.net  > $(DESTDIR)/etc/issue.net
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/os-release > $(DESTDIR)/etc/os-release
+	mkdir -p $(DESTDIR)/usr/lib
 	mv $(DESTDIR)/etc/os-release $(DESTDIR)/usr/lib/os-release
 	ln -s ../usr/lib/os-release $(DESTDIR)/etc/os-release
 
@@ -46,8 +47,8 @@ override_dh_compress:
 
 override_dh_fixperms:
 	dh_fixperms
-	cd debian/base-files && chown root:staff   var/local
-	cd debian/base-files && chmod 755  `find . -type d`
-	cd debian/base-files && chmod 1777 `cat ../1777-dirs`
-	cd debian/base-files && chmod 2775 `cat ../2775-dirs`
-	cd debian/base-files && chmod 700 root
+	cd debian/lingmo-base-files && chown root:staff   var/local
+	cd debian/lingmo-base-files && chmod 755  `find . -type d`
+	cd debian/lingmo-base-files && chmod 1777 `cat ../1777-dirs`
+	cd debian/lingmo-base-files && chmod 2775 `cat ../2775-dirs`
+	cd debian/lingmo-base-files && chmod 700 root
