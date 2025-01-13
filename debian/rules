@@ -2,9 +2,10 @@
 
 include /usr/share/dpkg/architecture.mk
 
-OSNAME = "GNU/`uname | sed -e 's/GNU\///'`"
+BUILDDATE = "`date +%Y%m%d`"
+OSNAME = "OS"
 ifeq ($(DEB_HOST_GNU_SYSTEM),linux)
-  OSNAME=GNU/Linux
+  OSNAME=OS
 endif
 ifeq ($(DEB_HOST_GNU_SYSTEM),gnu)
   OSNAME=GNU/Hurd
@@ -29,6 +30,7 @@ execute_after_dh_clean:
 
 override_dh_auto_build:
 	sh debian/check-md5sum-etc profile
+	sh debian/check-md5sum-etc dot.profile
 	set -e; { \
 	  echo "# Triggers for creating multilib aliasing symlinks on demand"; \
 	  for d in $(USR_MERGE_MULTILIB); do \
@@ -40,14 +42,11 @@ execute_after_dh_installdirs:
 	dh_installdirs $(foreach d,$(USR_MERGE),usr/$(d))
 
 override_dh_auto_install:
-	mkdir -p $(DESTDIR)/etc/apt/sources.list.d
 	install -p -m 644 etc/*      $(DESTDIR)/etc
 	install -p -m 755 motd/*     $(DESTDIR)/etc/update-motd.d
 	install -p -m 644 licenses/* $(DESTDIR)/usr/share/common-licenses
 	install -p -m 644 origins/*  $(DESTDIR)/etc/dpkg/origins
 	install -p -m 644 share/*    $(DESTDIR)/usr/share/base-files
-	install -p -m 644 extra/apt/sources.list $(DESTDIR)/etc/apt/
-	install -p -m 644 extra/apt/sources.list.d/* $(DESTDIR)/etc/apt/sources.list.d/
 ifeq ($(DEB_HOST_GNU_SYSTEM),gnu)
 	rmdir $(DESTDIR)/sys
 endif
@@ -56,6 +55,7 @@ endif
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/issue      > $(DESTDIR)/etc/issue
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/issue.net  > $(DESTDIR)/etc/issue.net
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/os-release > $(DESTDIR)/etc/os-release
+	sed -e "s&#BUILDDATE#&$(BUILDDATE)&g" etc/os-release > $(DESTDIR)/etc/os-release
 	mv $(DESTDIR)/etc/os-release $(DESTDIR)/usr/lib/os-release
 	ln -s ../usr/lib/os-release $(DESTDIR)/etc/os-release
 

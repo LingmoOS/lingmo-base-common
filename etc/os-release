@@ -1,10 +1,10 @@
-PRETTY_NAME="Lingmo OS 3.0.0-rc.1 (Helium)"
-NAME="Lingmo OS"
-RELEASE="Beta"
+PRETTY_NAME="Lingmo #OSNAME# 3.0.0-rc.5 (Helium)"
+NAME="Lingmo #OSNAME#"
+RELEASE="Beta(RC)"
 VERSION_ID="3.0.0"
 VERSION="3.0.0 (Helium)"
 VERSION_CODENAME=helium
-VERSION_BUILD=2024102
+VERSION_BUILD="#BUILDDATE#"
 VERSION_TYPE="unstable"
 ID=lingmo
 ID_LIKE=debian
