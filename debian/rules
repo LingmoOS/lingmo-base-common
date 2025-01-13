@@ -2,7 +2,7 @@
 
 include /usr/share/dpkg/architecture.mk
 
-BUILDDATE = "`date +%Y%m%d`"
+BUILDDATE = "`date +%Y%m%d%H%M`"
 
 VENDORFILE = debian
 DESTDIR = debian/base-files
